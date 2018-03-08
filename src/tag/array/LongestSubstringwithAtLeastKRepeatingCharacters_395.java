@@ -2,28 +2,28 @@ package tag.array;
 
 public class LongestSubstringwithAtLeastKRepeatingCharacters_395 {
     static public int longestSubstring(String s, int k) {
-        if (s == null || k < 0) return 0;
-        char[] letter = new char[26];
-        for (int i = 0; i < s.length(); i++) {
-            letter[s.charAt(i) - 'a']++;
+        if(s == null || k < 0){
+            return 0;
         }
-
-        Character delimiter = null;
-        for (int i = 0; i < letter.length; i++) {
-            if (letter[i] > 0 && letter[i] < k) {
-                delimiter = (char) (i + 'a');
+        char[] letter = new char[26];
+        for(int i = 0;i<s.length();i++){
+            letter[s.charAt(i)-'a']++;
+        }
+        Character spliter = null;
+        for(int i = 0;i<letter.length;i++){
+            if(letter[i]>0 && letter[i]<k){
+                spliter = (char)(i + 'a');
             }
         }
-        if (delimiter == null) {
+        if(spliter == null){
             return s.length();
         }
-
-        int maxlen = 0;
-        String[] splits = s.split("" + delimiter);
-        for (String str : splits) {
-            maxlen = Math.max(maxlen, longestSubstring(str, k));
+        int maxLen = 0;
+        String[] subString = s.split("" + spliter);
+        for(String n:subString){
+            maxLen = Math.max(maxLen,longestSubstring(n,k));
         }
-        return maxlen;
+        return maxLen;
     }
 
     public static void main(String[] args) {
