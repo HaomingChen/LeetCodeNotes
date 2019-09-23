@@ -93,7 +93,7 @@ public class Array<E> {
     //在第index个位置插入一个新元素e
     public void insert(int index, E e) {
         if (size == array.length) {
-            throw new IllegalArgumentException("Array is already full");
+            resize(2 * array.length);
         }
         if (index > size) {
             throw new IllegalArgumentException("index is too big");
@@ -119,6 +119,10 @@ public class Array<E> {
         }
         size--;
         array[size] = null;//loitering objects
+
+        if (size == array.length / 4 && array.length / 2 != 0) {
+            resize(array.length / 2);
+        }
         return ret;
     }
 
@@ -152,5 +156,14 @@ public class Array<E> {
             stringBuilder.append(",");
         }
         return stringBuilder.toString();
+    }
+
+    //对数组进行扩容
+    private void resize(int newCapacity) {
+        E[] newArray = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newArray[i] = array[i];
+        }
+        array = newArray;
     }
 }
