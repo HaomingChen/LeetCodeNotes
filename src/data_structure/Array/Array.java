@@ -20,6 +20,11 @@ public class Array<E> {
         this(10);
     }
 
+    //获取第一个元素
+    public E getFirst() {
+        return get(0);
+    }
+
     //获取数组中的元素个数
     public int getSize() {
         return size;
@@ -31,7 +36,7 @@ public class Array<E> {
     }
 
     //获取index索引位置的元素
-    public E getPar(int index) {
+    public E get(int index) {
         if (index >= size) {
             throw new IllegalArgumentException("index is too big");
         }
@@ -127,13 +132,13 @@ public class Array<E> {
     }
 
     //删除首部元素
-    public E removeFirst(int index) {
+    public E removeFirst() {
         return remove(0);
     }
 
     //删除尾部元素
-    public E removeLast(int index) {
-        return remove(array.length);
+    public E removeLast() {
+        return remove(size - 1);
     }
 
     //删除指定元素,有则删除
