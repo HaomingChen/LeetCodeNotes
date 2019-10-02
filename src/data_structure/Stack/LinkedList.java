@@ -1,4 +1,4 @@
-package data_structure.LinkedList;
+package data_structure.Stack;
 
 /**
  * @author 58212
