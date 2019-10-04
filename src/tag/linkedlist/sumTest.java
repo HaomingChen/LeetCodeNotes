@@ -7,7 +7,7 @@ package tag.linkedlist;
 public class sumTest {
 
     public static int sum(int[] arr, int i) {
-        if (arr.length == i) {
+        if(arr.length == i){
             return 0;
         }
         return arr[i] + sum(arr, i + 1);
