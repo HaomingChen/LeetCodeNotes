@@ -53,18 +53,35 @@ public class LinkedList<E> {
     }
 
     //在链表的index(0-based)位置添加新的元素e
+//    public void add(int index, E e) {
+//        if (index > size || index < 0) {
+//            throw new IllegalArgumentException("Add failed. Illegal index.");
+//        }
+//        //没有任何元素指向它
+//        Node prev = dummyHead;
+//        for (int i = 0; i < index; i++) {
+//            prev = prev.next;
+//        }
+//        //prev指向新元素            新元素指向后方元素
+//        prev.next = new Node(e, prev.next);
+//        size++;
+//    }
+
+    //在链表的index(0-based)位置添加新的元素e(递归实现)
     public void add(int index, E e) {
         if (index > size || index < 0) {
             throw new IllegalArgumentException("Add failed. Illegal index.");
         }
-        //没有任何元素指向它
-        Node prev = dummyHead;
-        for (int i = 0; i < index; i++) {
-            prev = prev.next;
+        add(dummyHead, index, e);
+    }
+
+    public void add(Node head, int index, E e) {
+        if (index == 0) {
+            head.next = new Node(e, head.next);
+            size++;
+            return;
         }
-        //prev指向新元素            新元素指向后方元素
-        prev.next = new Node(e, prev.next);
-        size++;
+        add(head.next, --index, e);
     }
 
     //在链表末尾添加新的元素e
@@ -161,4 +178,5 @@ public class LinkedList<E> {
         }
         return stringBuilder.toString();
     }
+
 }
