@@ -1,5 +1,7 @@
 package bst;
 
+import java.util.Stack;
+
 /**
  * @author 58212
  * @date 2019-10-04 0:18
@@ -41,18 +43,17 @@ public class BST<E extends Comparable<E>> {
     //向二分搜索树中添加元素
     public Node add(Node node, E e) {
         if (node == null) {
-            size++;
             return new Node(e);
         }
-        if (e.compareTo(node.e) > 0) {
-            node.right = add(node.right, e);
-        } else if (e.compareTo(node.e) < 0) {
+        if (node.e.compareTo(e) > 0) {
             node.left = add(node.left, e);
+        } else if (node.e.compareTo(e) < 0) {
+            node.right = add(node.right, e);
         }
         return node;
     }
 
-    //看二分搜索树中是否包含元素e
+    //看二分搜索树中是否包含元素e -> 前序遍历法
     public boolean contains(E e) {
         return contains(root, e);
     }
@@ -61,13 +62,13 @@ public class BST<E extends Comparable<E>> {
         if (node == null) {
             return false;
         }
-        if (e.compareTo(node.e) == 0) {
-            return true;
-        } else if (e.compareTo(node.e) < 0) {
-            return contains(node.left, e);
-        } else {
+        if (node.e.compareTo(e) < 0) {
             return contains(node.right, e);
         }
+        if (node.e.compareTo(e) > 0) {
+            return contains(node.left, e);
+        }
+        return true;
     }
 
     //二分搜索树的前序遍历
@@ -82,6 +83,59 @@ public class BST<E extends Comparable<E>> {
         System.out.println(node.e);
         preOrder(node.left);
         preOrder(node.right);
+    }
+
+    //二分搜索树的前序遍历(非递归)
+    public void preOrderNR(Node node) {
+        if (node == null) {
+            return;
+        }
+        Stack<Node> stack = new Stack<>();
+        stack.push(node);
+        while (!stack.empty()) {
+            Node res = stack.pop();
+            if (res.right != null) {
+                stack.push(res.right);
+            }
+            if (res.left != null) {
+                stack.push(res.left);
+            }
+        }
+
+    }
+
+    //二分搜索树的层序遍历
+    public void levelOrder(){
+
+    }
+
+    //二分搜索树的中序遍历
+    public void inOrder() {
+        inOrder(root);
+    }
+
+    public void inOrder(Node root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left);
+        System.out.println(root.e);
+        postOrder(root.right);
+    }
+
+    //二分搜索树的后序遍历
+    //用处: 释放二叉树内存
+    public void postOrder() {
+        postOrder(root);
+    }
+
+    public void postOrder(Node root) {
+        if (root == null) {
+            return;
+        }
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.println(root.e);
     }
 
 
