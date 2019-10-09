@@ -1,5 +1,7 @@
 package bst;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -90,23 +92,38 @@ public class BST<E extends Comparable<E>> {
         if (node == null) {
             return;
         }
-        Stack<Node> stack = new Stack<>();
-        stack.push(node);
-        while (!stack.empty()) {
-            Node res = stack.pop();
-            if (res.right != null) {
-                stack.push(res.right);
+        Stack<Node> nodeStack = new Stack<>();
+        nodeStack.push(node);
+        while (!nodeStack.isEmpty()) {
+            Node top = nodeStack.pop();
+            System.out.println(top.e);
+            if (top.right != null) {
+                nodeStack.push(top.right);
             }
-            if (res.left != null) {
-                stack.push(res.left);
+            if (top.left != null) {
+                nodeStack.push(top.left);
             }
         }
-
     }
 
     //二分搜索树的层序遍历
-    public void levelOrder(){
-
+    public void levelOrder() {
+        if (root == null) {
+            return;
+        }
+        Queue<Node> nodeQueue = new LinkedList<>();
+        nodeQueue.add(root);
+        System.out.println("-----------------" + root.e + "------------------");
+        while (!nodeQueue.isEmpty()) {
+            Node ret = nodeQueue.poll();
+            System.out.println(ret.e);
+            if (ret.left != null) {
+                nodeQueue.add(ret.left);
+            }
+            if (ret.right != null) {
+                nodeQueue.add(ret.right);
+            }
+        }
     }
 
     //二分搜索树的中序遍历
@@ -128,6 +145,35 @@ public class BST<E extends Comparable<E>> {
     public void postOrder() {
         postOrder(root);
     }
+
+//    //寻找二分搜索树最小值所在的节点
+//    public E minimum(){
+//
+//    }
+//
+//    //从二分搜索树中删除最小值所在节点, 返回最小值
+//    public E removeMin(){
+//
+//    }
+//
+//    //删除以node为根的二分搜索树中的最小节点
+//    //返回二分搜索树的根
+//    private Node removeMin(Node node){
+//
+//    }
+//
+//    //从二分搜索树中删除最大值所在节点, 返回最小值
+//    public E removeMax(){
+//
+//    }
+//
+//    //删除以node为根的二分搜索树中的最大节点
+//    //返回二分搜索树的根
+//    private Node removeMax(Node node){
+//
+//    }
+
+
 
     public void postOrder(Node root) {
         if (root == null) {

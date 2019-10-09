@@ -17,14 +17,4 @@ public class main {
         int s = 1;
     }
 
-    public static <T> T sji(T jss) {
-        if (jss instanceof String) {
-            System.out.println("this is a String");
-        }
-        if (jss instanceof Integer) {
-            System.out.println("this is a Integer");
-        }
-        return jss;
-    }
-
 }
