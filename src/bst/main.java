@@ -8,13 +8,14 @@ public class main {
 
     public static void main(String[] args) {
         BST<Integer> bst = new BST<>();
-        int[] arr = {5,3,6,2,4,8};
+        int[] arr = {28,30,16,13,22,29,42};
         for(int value : arr){
             bst.add(value);
         }
         System.out.println(bst.contains(4));
         bst.preOrder();
         System.out.println(bst);
+        bst.levelOrder();
     }
 
 }
