@@ -21,8 +21,8 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
-    private Node root;
-    private int size;
+    public Node root;
+    public int size;
 
     public BST() {
         root = null;
@@ -45,6 +45,7 @@ public class BST<E extends Comparable<E>> {
     //向二分搜索树中添加元素
     public Node add(Node node, E e) {
         if (node == null) {
+            size++;
             return new Node(e);
         }
         if (node.e.compareTo(e) > 0) {
@@ -87,7 +88,7 @@ public class BST<E extends Comparable<E>> {
         preOrder(node.right);
     }
 
-    //二分搜索树的前序遍历(非递归)
+    //二分搜索树的前序遍历(非递归) depth-first approach
     public void preOrderNR(Node node) {
         if (node == null) {
             return;
@@ -106,7 +107,7 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
-    //二分搜索树的层序遍历
+    //二分搜索树的层序遍历 width-first approach
     public void levelOrder() {
         if (root == null) {
             return;
@@ -146,33 +147,67 @@ public class BST<E extends Comparable<E>> {
         postOrder(root);
     }
 
-//    //寻找二分搜索树最小值所在的节点
-//    public E minimum(){
-//
-//    }
-//
-//    //从二分搜索树中删除最小值所在节点, 返回最小值
-//    public E removeMin(){
-//
-//    }
-//
-//    //删除以node为根的二分搜索树中的最小节点
-//    //返回二分搜索树的根
-//    private Node removeMin(Node node){
-//
-//    }
-//
-//    //从二分搜索树中删除最大值所在节点, 返回最小值
-//    public E removeMax(){
-//
-//    }
-//
-//    //删除以node为根的二分搜索树中的最大节点
-//    //返回二分搜索树的根
-//    private Node removeMax(Node node){
-//
-//    }
+    //寻找二分搜索树最小值所在的节点
+    public E minimum() {
+        return minimum(root);
+    }
 
+    public E minimum(Node node) {
+        if (node.left == null) {
+            return node.e;
+        }
+        return minimum(node.left);
+    }
+
+    //从二分搜索树中删除最小值所在节点, 返回最小值
+    public E removeMin() {
+        E ret = minimum();
+        root = removeMin(root);
+        return ret;
+    }
+
+    //删除以node为根的二分搜索树中的最小节点
+    //返回二分搜索树的根
+    private Node removeMin(Node node) {
+        if (node.left != null) {
+            node.left = removeMin(node.left);
+            return node;
+        } else {
+            size--;
+            return node.right == null ? null : node.right;
+        }
+    }
+
+    //寻找二分搜索树最大值所在的节点
+    public E maximum() {
+        return maximum(root);
+    }
+
+    public E maximum(Node node) {
+        if (node.right == null) {
+            return node.e;
+        }
+        return minimum(node.right);
+    }
+
+    //从二分搜索树中删除最大值所在节点, 返回最大值
+    public E removeMax() {
+        E ret = maximum(root);
+        root = removeMax(root);
+        return ret;
+    }
+
+    //删除以node为根的二分搜索树中的最大节点
+    //返回二分搜索树的根
+    private Node removeMax(Node node) {
+        if (node.right != null) {
+            node.right = removeMax(node.right);
+            return node;
+        } else {
+            size--;
+            return node.left == null ? null : node.left;
+        }
+    }
 
 
     public void postOrder(Node root) {

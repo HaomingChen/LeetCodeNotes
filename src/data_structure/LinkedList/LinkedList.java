@@ -69,21 +69,19 @@ public class LinkedList<E> {
 
     //在链表的index(0-based)位置添加新的元素e(递归实现)
     public void add(int index, E e) {
-        if (index < 0 || index > size) {
-            throw new IllegalArgumentException("Add failed, Illegal index found.");
+        if (index > size || index < 0) {
+            throw new IllegalArgumentException("Please enter a valid index number");
         }
         add(dummyHead, index, e);
     }
 
     public void add(Node node, Integer index, E e) {
-
         if (index == 0) {
             node.next = new Node(e, node.next);
             size++;
         } else if (index > 0) {
-            add(node.next, index - 1, e);
+            add(node, index--, e);
         }
-
     }
 
     //在链表末尾添加新的元素e

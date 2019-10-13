@@ -7,7 +7,9 @@ package data_structure.Queue;
 public class LoopQueue<E> implements Queue<E> {
 
     private E[] data;
+    //指向队首元素
     private int head;
+    //指向队尾元素后一位
     private int tail;
     private int size;
 
@@ -37,25 +39,22 @@ public class LoopQueue<E> implements Queue<E> {
         if ((tail + 1) % data.length == head) {
             resize(data.length * 2 - 1);
         }
-        data[tail] = e;
+        data[tail % data.length] = e;
         tail = (tail + 1) % data.length;
         size++;
     }
 
     @Override
     public E dequeue() {
-        if (getSize() == 0) {
-            throw new IllegalArgumentException("Can not dequeue, since this queue is empty");
-        }
-//        System.out.println("size：" + size);
-//        System.out.println("data.length - 1：" + (data.length - 1)/4);
-        if (size < ((data.length - 1) / 4) && data.length / 2 > 0) {
-            resize((data.length) / 2 + 1);
+        if (head == tail) {
+            return null;
         }
         E ret = data[head];
-        data[head] = null;
-        head++;
+        head = (head + 1) % data.length;
         size--;
+        if (data.length / 4 > size) {
+            resize(data.length / 2);
+        }
         return ret;
     }
 
@@ -65,12 +64,12 @@ public class LoopQueue<E> implements Queue<E> {
     }
 
     private void resize(int newCapacity) {
-        System.out.println("resize starts");
-        E[] newData = (E[]) new Object[newCapacity];
+        System.out.println("resize: " + newCapacity);
+        E[] newArray = (E[]) new Object[newCapacity];
         for (int i = 0; i < size; i++) {
-            newData[i] = data[(head + i) % data.length];
+            newArray[i] = data[(head + i) % data.length];
         }
-        data = newData;
+        data = newArray;
         head = 0;
         tail = size;
     }
