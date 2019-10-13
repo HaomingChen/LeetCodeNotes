@@ -149,12 +149,15 @@ public class BST<E extends Comparable<E>> {
 
     //寻找二分搜索树最小值所在的节点
     public E minimum() {
-        return minimum(root);
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is Empty");
+        }
+        return minimum(root).e;
     }
 
-    public E minimum(Node node) {
+    public Node minimum(Node node) {
         if (node.left == null) {
-            return node.e;
+            return node;
         }
         return minimum(node.left);
     }
@@ -180,19 +183,19 @@ public class BST<E extends Comparable<E>> {
 
     //寻找二分搜索树最大值所在的节点
     public E maximum() {
-        return maximum(root);
+        return maximum(root).e;
     }
 
-    public E maximum(Node node) {
+    public Node maximum(Node node) {
         if (node.right == null) {
-            return node.e;
+            return node;
         }
-        return minimum(node.right);
+        return maximum(node.right);
     }
 
     //从二分搜索树中删除最大值所在节点, 返回最大值
     public E removeMax() {
-        E ret = maximum(root);
+        E ret = maximum(root).e;
         root = removeMax(root);
         return ret;
     }
@@ -207,6 +210,59 @@ public class BST<E extends Comparable<E>> {
             size--;
             return node.left == null ? null : node.left;
         }
+    }
+
+    //删除以node为根的二分搜索树中值为e的节点，递归算法
+    public void remove(E e) {
+        root = remove(root, e);
+    }
+
+    //返回删除节点后新的二分搜索树的根
+    private Node remove(Node node, E e) {
+        if (node == null) {
+            return null;
+        }
+        if (node.e.compareTo(e) > 0) {
+            node.left = remove(node.left, e);
+            return node;
+        } else if (node.e.compareTo(e) < 0) {
+            node.right = remove(node.right, e);
+            return node;
+        } else {
+            //待删除的节点为叶子节点
+            if (node.right == null && node.left == null) {
+                return null;
+            }
+            //该待删除节点的右子树为空
+            if (node.right == null && node.left != null) {
+                size--;
+                Node ret = node.left;
+                //删除当前元素
+                node.left = null;
+                node.right = null;
+                return ret;
+            }
+            //该待删除节点的左子树为空
+            if (node.left == null && node.right != null) {
+                size--;
+                Node ret = node.right;
+                //删除当前元素
+                node.left = null;
+                node.right = null;
+                return ret;
+            }
+            //该待删除节点的左右子树均不为空 Hibbard Deletion
+            if (node.left != null && node.right != null) {
+
+                Node successor = minimum(node.right);
+                successor.right = removeMin(node.right);
+                successor.left = node.left;
+                node.left = node.right = null;
+                return successor;
+
+            }
+        }
+        return node;
     }
 
 
@@ -244,6 +300,10 @@ public class BST<E extends Comparable<E>> {
             res.append("-");
         }
         return res.toString();
+    }
+
+    public int getSize() {
+        return size;
     }
 
 }
