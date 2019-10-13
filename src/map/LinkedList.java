@@ -1,4 +1,4 @@
-package data_structure.LinkedList;
+package map;
 
 /**
  * @author 58212
@@ -10,6 +10,7 @@ public class LinkedList<E> {
     private int size;
 
     private class Node {
+
         public E e;
         public Node next;
 
