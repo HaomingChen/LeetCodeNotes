@@ -41,7 +41,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
         }
     }
 
-    private Node hasNode(K k) {
+    private Node getNode(K k) {
         Node traceNode = dummyHead;
         while (traceNode.next != null) {
             if (traceNode.next.k.equals(k)) {
@@ -54,7 +54,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
 
     @Override
     public void add(K key, V value) {
-        Node node = hasNode(key);
+        Node node = getNode(key);
         if (node != null) {
             node.v = value;
         }
@@ -83,17 +83,17 @@ public class LinkedListMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean contains(K key) {
-        return hasNode(key) != null;
+        return getNode(key) != null;
     }
 
     @Override
     public V get(K key) {
-        return hasNode(key).v;
+        return getNode(key).v;
     }
 
     @Override
     public void set(K key, V newValue) {
-        Node node = hasNode(key);
+        Node node = getNode(key);
         if (node != null) {
             node.v = newValue;
         } else {
@@ -111,20 +111,21 @@ public class LinkedListMap<K, V> implements Map<K, V> {
         return size == 0;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         System.out.println("Pride and Prejudice");
 
         ArrayList<String> words = new ArrayList<>();
-        if(FileOperation.readFile("E:\\workspace2\\LeetCodeNotes\\src\\map\\pride-and-prejudice.txt", words)) {
+        if (FileOperation.readFile("E:\\workspace2\\LeetCodeNotes\\src\\map\\pride-and-prejudice.txt", words)) {
             System.out.println("Total words: " + words.size());
 
             LinkedListMap<String, Integer> map = new LinkedListMap<>();
             for (String word : words) {
-                if (map.contains(word))
+                if (map.contains(word)) {
                     map.set(word, map.get(word) + 1);
-                else
+                } else {
                     map.add(word, 1);
+                }
             }
 
             System.out.println("Total different words: " + map.getSize());
