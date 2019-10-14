@@ -29,17 +29,31 @@ public class main {
         for (int i = 0; i < n; i++) {
             bst.add(random.nextInt(10000));
         }
+
+        System.out.println("----------------------------");
+        System.out.println(bst.size);
+        System.out.println("----------------------------");
+        bst.remove(1);
+        bst.remove(2);
+        bst.remove(3);
+        bst.remove(4);
+        bst.remove(5);
+        bst.remove(6);
+        System.out.println(bst.size);
+
         ArrayList<Integer> nums = new ArrayList<>();
         int count = 0;
         while (!bst.isEmpty()) {
             nums.add(bst.removeMin());
             count++;
         }
+        System.out.println("----------------------------");
         System.out.println(bst);
         System.out.println("----------------------------");
         System.out.println(nums);
         System.out.println("----------------------------");
         System.out.println("Count: " + count);
+        System.out.println("----------------------------");
     }
 
 }

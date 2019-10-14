@@ -222,44 +222,31 @@ public class BST<E extends Comparable<E>> {
         if (node == null) {
             return null;
         }
+        //e小于node -> 向左递归
         if (node.e.compareTo(e) > 0) {
             node.left = remove(node.left, e);
-            return node;
         } else if (node.e.compareTo(e) < 0) {
+            //e 大于node元素 -> 向右递归
             node.right = remove(node.right, e);
-            return node;
         } else {
-            //待删除的节点为叶子节点
-            if (node.right == null && node.left == null) {
-                return null;
-            }
-            //该待删除节点的右子树为空
+            size--;
             if (node.right == null && node.left != null) {
-                size--;
-                Node ret = node.left;
-                //删除当前元素
-                node.left = null;
-                node.right = null;
-                return ret;
-            }
-            //该待删除节点的左子树为空
-            if (node.left == null && node.right != null) {
-                size--;
-                Node ret = node.right;
-                //删除当前元素
-                node.left = null;
-                node.right = null;
-                return ret;
-            }
-            //该待删除节点的左右子树均不为空 Hibbard Deletion
-            if (node.left != null && node.right != null) {
-
+                Node newRoot = node.left;
+                node.left = node.right = null;
+                return newRoot;
+            } else if (node.left == null && node.right != null) {
+                Node newRoot = node.right;
+                node.left = node.right = null;
+                return newRoot;
+            } else if (node.left == null && node.right == null) {
+                node.left = node.right = null;
+                return null;
+            } else {
                 Node successor = minimum(node.right);
-                successor.right = removeMin(node.right);
                 successor.left = node.left;
+                successor.right = removeMin(node.right);
                 node.left = node.right = null;
                 return successor;
-
             }
         }
         return node;
