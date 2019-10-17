@@ -3,6 +3,8 @@ package maxheap;
 import data_structure.Array.Array;
 
 /**
+ * 最大堆
+ *
  * @author 58212
  * @date 2019-10-16 23:19
  */
@@ -30,51 +32,47 @@ public class MaxHeap<E extends Comparable<E>> {
 
     //返回完全二叉树的数组表示中,一个索引所表示的元素的父亲节点的索引
     private int parent(int index) {
-        if (index <= 0) {
-            throw new IllegalArgumentException("Invalid index input");
+        if (index < 0 || index >= data.getSize()) {
+            throw new IllegalArgumentException("parent: invalid index input");
         }
         return (index - 1) / 2;
     }
 
     //返回完全二叉树的数组表示中一个索引所表示的元素的左孩子节点的索引
     private int leftChild(int index) {
-        if (index < 0) {
-            throw new IllegalArgumentException("Invalid index input");
+        if (index < 0 || index >= data.getSize()) {
+            throw new IllegalArgumentException("leftChild: invalid index input");
         }
-//        if (index * 2 + 1 > size()) {
-//            throw new IllegalArgumentException("Invalid index input");
-//        }
-        return index * 2 + 1;
+        return 2 * index + 1;
     }
 
     //返回完全二叉树的数组表示中一个索引所表示的元素的右孩子节点的索引
     private int rightChild(int index) {
-        if (index < 0) {
-            throw new IllegalArgumentException("Invalid index input");
+        if (index < 0 || index >= data.getSize()) {
+            throw new IllegalArgumentException("rightChild: invalid index input");
         }
-        if (index * 2 + 1 > size()) {
-            throw new IllegalArgumentException("Invalid index input");
-        }
-        return index * 2 + 2;
+        return 2 * index + 2;
     }
 
     //向堆中添加元素
     public void add(E e) {
+        //添加元素至堆尾
         data.addLast(e);
+        //元素上浮
         siftUp(data.getSize() - 1);
     }
 
-    private void siftUp(int k) {
-        while (k > 0 && data.get(parent(k)).compareTo(data.get(k)) < 0) {
-            data.swap(k, parent(k));
-            k = parent(k);
+    private void siftUp(int index) {
+        while (index > 0 && data.get(index).compareTo(data.get(parent(index))) > 0) {
+            data.swap(index, parent(index));
+            index = parent(index);
         }
     }
 
     //看堆中的最大元素
     public E findMax() {
-        if (data.getSize() == 0) {
-            throw new IllegalArgumentException("Can not findMax when heap is Empty");
+        if (data.isEmpty()) {
+            throw new IllegalArgumentException("This heap is Empty and nothing can be retrieved");
         }
         return data.get(0);
     }
@@ -82,6 +80,7 @@ public class MaxHeap<E extends Comparable<E>> {
     //取出堆中最大元素
     public E extractMax() {
         E ret = findMax();
+        //为了保证堆的性质, 堆顶最大元素与堆最后一个元素交换
         data.swap(0, data.getSize() - 1);
         data.removeLast();
         siftDown(0);
@@ -89,18 +88,20 @@ public class MaxHeap<E extends Comparable<E>> {
     }
 
     private void siftDown(int k) {
-        //存在左孩子
-        while (leftChild(k) < data.getSize()) {
-            int j = leftChild(k);
-            //判断是否存在右孩子
-            if (j + 1 < data.getSize() && data.get(j + 1).compareTo(data.get(j)) > 0) {
-                j = rightChild(k);
+
+        while (k * 2 + 1 < data.getSize()) {
+            //左子树index
+            int index = k * 2 + 1;
+            //存在右子树且右子树大于左子树
+            if (index + 1 < data.getSize() && data.get(index + 1).compareTo(data.get(index)) > 0) {
+                index++;
             }
-            if (data.get(k).compareTo(data.get(j)) >= 0) {
+            //当前子树大于或等于左子树或右子树的最大值
+            if (data.get(k).compareTo(data.get(index)) >= 0) {
                 break;
             }
-            data.swap(k, j);
-            k = j;
+            data.swap(k, index);
+            k = index;
         }
     }
 

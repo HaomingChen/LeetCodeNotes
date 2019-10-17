@@ -150,12 +150,12 @@ public class Array<E> {
 
     //交换两个索引的size
     public void swap(int i, int j) {
-        if (i < 0 || i >= size || j < 0 || j >= size) {
-            throw new IllegalArgumentException("Index is illegal");
+        if (i < 0 || j < 0 || i >= size || j >= size) {
+            throw new IllegalArgumentException("Illegal index found");
         }
-        E t = array[i];
+        E temp = array[i];
         array[i] = array[j];
-        array[j] = t;
+        array[j] = temp;
     }
 
     //重写toString方法，输出array的size和array的capacity及其每一个元素
