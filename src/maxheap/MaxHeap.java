@@ -59,7 +59,7 @@ public class MaxHeap<E extends Comparable<E>> {
         //添加元素至堆尾
         data.addLast(e);
         //元素上浮
-        siftUp(data.getSize() - 1);
+        siftUp(size() - 1);
     }
 
     private void siftUp(int index) {
@@ -79,29 +79,26 @@ public class MaxHeap<E extends Comparable<E>> {
 
     //取出堆中最大元素
     public E extractMax() {
-        E ret = findMax();
-        //为了保证堆的性质, 堆顶最大元素与堆最后一个元素交换
-        data.swap(0, data.getSize() - 1);
+        E ret = data.getFirst();
+        data.swap(0, size() - 1);
         data.removeLast();
         siftDown(0);
         return ret;
     }
 
     private void siftDown(int k) {
-
         while (k * 2 + 1 < data.getSize()) {
-            //左子树index
-            int index = k * 2 + 1;
-            //存在右子树且右子树大于左子树
-            if (index + 1 < data.getSize() && data.get(index + 1).compareTo(data.get(index)) > 0) {
-                index++;
+            int change = k * 2 + 1;
+            if (change + 1 < data.getSize()) {
+                if (data.get(change).compareTo(data.get(change + 1)) < 0) {
+                    change = change + 1;
+                }
             }
-            //当前子树大于或等于左子树或右子树的最大值
-            if (data.get(k).compareTo(data.get(index)) >= 0) {
+            if (data.get(change).compareTo(data.get(k)) < 0) {
                 break;
             }
-            data.swap(k, index);
-            k = index;
+            data.swap(k, change);
+            k = change;
         }
     }
 
