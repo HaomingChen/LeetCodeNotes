@@ -7,6 +7,7 @@ import java.util.Random;
  * @date 2019-10-17 1:22
  */
 public class main {
+
     public static void main(String[] args) {
         int n = 1000;
         MaxHeap<Integer> maxHeap = new MaxHeap<>();

@@ -15,6 +15,15 @@ public class Array<E> {
         size = 0;
     }
 
+    //构造函数,利用传入的数组作为新数组
+    public Array(E[] arr) {
+        array = (E[]) new Object[arr.length];
+        size = arr.length;
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+    }
+
     //无参数的构造函数，默认数组的容量capacity = 10
     public Array() {
         this(10);
