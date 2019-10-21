@@ -81,7 +81,7 @@ public class MaxHeap<E extends Comparable<E>> {
 
     //取出堆中最大元素
     public E extractMax() {
-        E ret = data.getFirst();
+        E ret = findMax();
         data.swap(0, size() - 1);
         data.removeLast();
         siftDown(0);

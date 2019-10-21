@@ -24,8 +24,10 @@ public class BinaryTreeInorderTraversal_94 {
     public List<Integer> inorderTraversal(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
         List<Integer> res = new ArrayList<>();
+        //当前节点=根节点
         TreeNode curr = root;
         while (curr != null || !stack.isEmpty()) {
+            //向该节点的左子树遍历, 将左子树均压入栈中, 作前序遍历
             while (curr != null) {
                 stack.push(curr);
                 curr = curr.left;
