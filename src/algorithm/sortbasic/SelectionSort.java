@@ -9,7 +9,7 @@ public class SelectionSort<E extends Comparable<E>> {
     public static void main(String[] args) {
         Integer[] s = {1, 7, 2, 6, 4, 0, 2, 6, 4, 5, 1, 7, 4};
         SelectionSort<Integer> ss = new SelectionSort<>();
-        Integer[] sorted = ss.selctSort(s);
+        Integer[] sorted = ss.sort(s);
         for (int i : sorted) {
             System.out.print(i + " ");
         }
@@ -17,13 +17,13 @@ public class SelectionSort<E extends Comparable<E>> {
         SelectionSort<Student> sp = new SelectionSort<>();
         Student[] scoreList = {new Student("jack", 20), new Student("mike", 87),
                 new Student("snow", 88), new Student("marry", 12)};
-        scoreList = sp.selctSort(scoreList);
+        scoreList = sp.sort(scoreList);
         for (Student student : scoreList) {
             System.out.print(student.name + " ");
         }
     }
 
-    private E[] selctSort(E[] arr) {
+    private E[] sort(E[] arr) {
         if (arr.length == 0) {
             throw new IllegalArgumentException("数组不可为空");
         }
