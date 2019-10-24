@@ -1,6 +1,8 @@
 package algorithm.sortbasic;
 
 /**
+ * 选择排序: 从第一位开始，依次将子数组的最小值放入数组首位
+ *
  * @author Haoming Chen
  * Created on 2019/10/23
  */
@@ -23,8 +25,8 @@ public class SelectionSort<E extends Comparable<E>> {
         }
     }
 
-    private E[] sort(E[] arr) {
-        if (arr.length == 0) {
+    public E[] sort(E[] arr) {
+        if (arr == null || arr.length == 0) {
             throw new IllegalArgumentException("数组不可为空");
         }
         for (int i = 0; i < arr.length; i++) {

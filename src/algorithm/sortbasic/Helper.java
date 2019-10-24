@@ -1,4 +1,4 @@
-package algorithm.helper;
+package algorithm.sortbasic;
 
 import java.lang.reflect.Method;
 import java.util.Random;
@@ -17,24 +17,24 @@ public class Helper {
 
     }
 
-    public static int[] generateArray(int size, int min, int max) {
+    public static Integer[] generateArray(int size, int min, int max) {
         Random rand = new Random();
-        int[] array = new int[size];
+        Integer[] array = new Integer[size];
         for (int i = 0; i < size; i++) {
             array[i] = rand.nextInt(max - min + 1) + min;
         }
         return array;
     }
 
-    public static void printArray(int[] arr) {
+    public static void printArray(Integer[] arr) {
         if (arr.length == 0) {
             throw new IllegalArgumentException("");
         }
         for (int i = 0; i < arr.length; i++) {
             if (i != arr.length - 1) {
-                System.out.print(i + ",");
+                System.out.print(arr[i] + ",");
             } else {
-                System.out.println(i);
+                System.out.println(arr[i]);
             }
         }
     }
@@ -42,9 +42,11 @@ public class Helper {
     // 判断arr数组是否有序
     public static boolean isSorted(Comparable[] arr) {
 
-        for (int i = 0; i < arr.length - 1; i++)
-            if (arr[i].compareTo(arr[i + 1]) > 0)
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i].compareTo(arr[i + 1]) > 0) {
                 return false;
+            }
+        }
         return true;
     }
 
@@ -54,25 +56,31 @@ public class Helper {
         // 通过Java的反射机制，通过排序的类名，运行排序函数
         try {
             // 通过sortClassName获得排序函数的Class对象
-            Class sortClass = Class.forName(sortClassName);
+            Class cls = Class.forName(sortClassName);
             // 通过排序函数的Class对象获得排序方法
-            Method sortMethod = sortClass.getMethod("sort", new Class[]{Comparable[].class});
+            Method sortMethod = cls.getMethod("sort", new Class[]{Comparable[].class});
             // 排序参数只有一个，是可比较数组arr
             Object[] params = new Object[]{arr};
-
-            long startTime = System.currentTimeMillis();
             // 调用排序函数
-            sortMethod.invoke(null, params);
+            long startTime = System.currentTimeMillis();
+            sortMethod.invoke(cls.newInstance(), params);
             long endTime = System.currentTimeMillis();
 
-            if (isSorted(arr)) {
-                throw new IllegalArgumentException("Error");
-            }
-
-            System.out.println(sortClass.getSimpleName() + " : " + (endTime - startTime) + "ms");
+            System.out.println(cls.getSimpleName() + " : " + (endTime - startTime) + "ms");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Integer[] copyArray(Integer[] source) {
+        if (source == null || source.length == 0) {
+            throw new IllegalArgumentException("Input array can not be null or empty");
+        }
+        Integer[] array = new Integer[source.length];
+        for (int i = 0; i < source.length; i++) {
+            array[i] = source[i];
+        }
+        return array;
     }
 
 }
