@@ -10,7 +10,7 @@ package algorithm.sortbasic;
 public class InsertionSort<E extends Comparable<E>> {
 
     public static void main(String[] args) {
-        Integer[] arr = Helper.generateArray(10, 0, 1000);
+        Integer[] arr = Helper.generateArray(10000, 0, 100000);
         Helper.printArray(arr);
         Integer[] arr2 = Helper.copyArray(arr);
         Helper.testSort("algorithm.sortbasic.InsertionSort", arr);
