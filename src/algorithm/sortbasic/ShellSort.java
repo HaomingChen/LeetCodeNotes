@@ -9,7 +9,7 @@ package algorithm.sortbasic;
 public class ShellSort<E extends Comparable<E>> {
 
     public static void main(String[] args) {
-        Integer[] arr = Helper.generateArray(10000, 0, 100000);
+        Integer[] arr = Helper.generateArray(50000, 0, 100000);
         Helper.printArray(arr);
         Integer[] arr2 = Helper.copyArray(arr);
         Helper.testSort("algorithm.sortbasic.ShellSort", arr);
@@ -19,7 +19,7 @@ public class ShellSort<E extends Comparable<E>> {
     public E[] sort(E[] arr) {
         int scope = arr.length / 2;
         while (scope != 0) {
-            for (int head = 0; head < arr.length - scope; head++) {
+            for (int head = 0; head < scope; head++) {
                 insertionSort(arr, scope, head);
             }
             scope = scope / 2;
