@@ -52,6 +52,21 @@ public class InsertionSort<E extends Comparable<E>> {
         return arr;
     }
 
+    private E[] insertionSort(E[] arr, int head, int tail) {
+        //外层已排序数组尾
+        for (int i = head; i < tail - 1; i++) {
+            //内层未排序数组
+            for (int j = head + 1; j > head; j--) {
+                if (arr[j].compareTo(arr[j - 1]) < 0) {
+                    swap(i, j, arr);
+                } else {
+                    break;
+                }
+            }
+        }
+        return arr;
+    }
+
     private void swap(int i, int j, E[] arr) {
         E temp = arr[i];
         arr[i] = arr[j];

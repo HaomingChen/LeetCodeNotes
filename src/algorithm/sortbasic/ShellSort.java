@@ -9,7 +9,7 @@ package algorithm.sortbasic;
 public class ShellSort<E extends Comparable<E>> {
 
     public static void main(String[] args) {
-        Integer[] arr = Helper.generateArray(50000, 0, 100000);
+        Integer[] arr = Helper.generateArray(39997, 0, 100000);
         Helper.printArray(arr);
         Integer[] arr2 = Helper.copyArray(arr);
         Helper.testSort("algorithm.sortbasic.ShellSort", arr);
@@ -17,10 +17,13 @@ public class ShellSort<E extends Comparable<E>> {
     }
 
     public E[] sort(E[] arr) {
+        if (arr == null) {
+            throw new IllegalArgumentException("传入的数组不可为空");
+        }
         int scope = arr.length / 2;
         while (scope != 0) {
-            for (int head = 0; head < scope; head++) {
-                insertionSort(arr, scope, head);
+            for (int i = 0; i < scope; i++) {
+                insertionSort(arr, scope, i);
             }
             scope = scope / 2;
         }
@@ -28,16 +31,11 @@ public class ShellSort<E extends Comparable<E>> {
     }
 
     private E[] insertionSort(E[] arr, int scope, int head) {
-        if (arr == null || arr.length == 0) {
-            throw new IllegalArgumentException("数组不可为空");
-        }
-        //有序的数组
         for (int i = head; i < arr.length - scope; i = i + scope) {
-            //有序的数组后一个元素
             for (int j = i + scope; j > head; j = j - scope) {
-                if (arr[j - scope].compareTo(arr[j]) > 0) {
+                if (arr[j].compareTo(arr[j - scope]) < 0) {
                     swap(j, j - scope, arr);
-                } else {
+                }else{
                     break;
                 }
             }
