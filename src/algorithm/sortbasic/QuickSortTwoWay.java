@@ -7,7 +7,7 @@ package algorithm.sortbasic;
 public class QuickSortTwoWay<E extends Comparable<E>> {
 
     public static void main(String[] args) {
-        Integer[] arr = Helper.generateArray(10000, 0, 100000);
+        Integer[] arr = Helper.generateArray(9999, 0, 100000);
         Helper.printArray(arr);
         Integer[] arr2 = Helper.copyArray(arr);
         Helper.testSort("algorithm.sortbasic.QuickSortTwoWay", arr);
@@ -30,23 +30,30 @@ public class QuickSortTwoWay<E extends Comparable<E>> {
     }
 
     private int partition(E[] arr, int l, int r) {
-        int right = r;
-        int left = l + 1;
+        int lt = l;
+        int gt = r + 1;
+        int less = lt + 1;
+        int greater = gt - 1;
         while (true) {
-            while (left <= r && (arr[left].compareTo(arr[l]) <= 0)) {
-                left++;
+            while (less <= greater && arr[l].compareTo(arr[less]) > 0) {
+                less++;
+                lt++;
             }
-            while (right >= l + 1 && (arr[right].compareTo(arr[l]) >= 0)) {
-                right--;
+            while (less <= greater && arr[l].compareTo(arr[greater]) < 0) {
+                greater--;
+                gt--;
             }
-            //左右索引越界
-            if (left > right) {
+            if (less > greater) {
                 break;
             }
-            swap(left, right, arr);
+            swap(less, greater, arr);
+            less++;
+            lt++;
+            greater--;
+            gt--;
         }
-        swap(left, l, arr);
-        return left;
+        swap(lt, l, arr);
+        return lt;
     }
 
     private void swap(int i, int j, E[] arr) {
