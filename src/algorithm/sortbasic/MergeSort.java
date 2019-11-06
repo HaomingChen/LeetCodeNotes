@@ -26,48 +26,46 @@ public class MergeSort<E extends Comparable<E>> {
     //归并当前数组
     private void merge(E[] arr, int l, int mid, int r) {
         E[] aux = Arrays.copyOfRange(arr, l, r + 1);
-
-        // 初始化，i指向左半部分的起始索引位置l；j指向右半部分起始索引位置mid+1
-        int i = l, j = mid + 1;
-        for (int k = l; k <= r; k++) {
-
-            if (i > mid) {  // 如果左半部分元素已经全部处理完毕
-                arr[k] = aux[j - l];
-                j++;
-            } else if (j > r) {   // 如果右半部分元素已经全部处理完毕
-                arr[k] = aux[i - l];
-                i++;
-            } else if (aux[i - l].compareTo(aux[j - l]) < 0) {  // 左半部分所指元素 < 右半部分所指元素
-                arr[k] = aux[i - l];
-                i++;
-            } else {  // 左半部分所指元素 >= 右半部分所指元素
-                arr[k] = aux[j - l];
-                j++;
+        int auxMid = mid - l;
+        int right = auxMid + 1;
+        int left = 0;
+        for (int i = 0; i < aux.length; i++) {
+            if (left > auxMid) {
+                arr[l + i] = aux[right];
+                right++;
+            } else if (right > aux.length - 1) {
+                arr[l + i] = aux[left];
+                left++;
+            } else if (aux[left].compareTo(aux[right]) < 0) {
+                arr[l + i] = aux[left];
+                left++;
+            } else {
+                arr[l + i] = aux[right];
+                right++;
             }
         }
     }
 
     //归并排序
     private void mergeSort(E[] arr, int l, int r) {
-        if (r - l <= 15) {
-            insertionSort(arr, l, r);
+        if (l >= r) {
             return;
         }
-        int mid = (r + l) / 2;
-        //左数组排序
+        if(r - l <= 16){
+            insertionSort(arr, l, r);
+        }
+        int mid = (l + r) / 2;
         mergeSort(arr, l, mid);
-        //右数组排序
         mergeSort(arr, mid + 1, r);
         if (arr[mid].compareTo(arr[mid + 1]) > 0) {
-            //归并
             merge(arr, l, mid, r);
         }
     }
 
     private void insertionSort(E[] arr, int head, int tail) {
-        //外层已排序数组尾
+        //外层已排序数组
         for (int i = head; i < tail; i++) {
-            //内层未排序数组
+            //内层待排序数组
             for (int j = i + 1; j > head; j--) {
                 if (arr[j].compareTo(arr[j - 1]) < 0) {
                     swap(j - 1, j, arr);
