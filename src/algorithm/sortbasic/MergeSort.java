@@ -23,44 +23,41 @@ public class MergeSort<E extends Comparable<E>> {
         return arr;
     }
 
-    //归并当前数组
-    private void merge(E[] arr, int l, int mid, int r) {
-        E[] aux = Arrays.copyOfRange(arr, l, r + 1);
-        int auxMid = mid - l;
-        int right = auxMid + 1;
-        int left = 0;
+    //数组分离
+    private void mergeSort(E[] arr, int head, int tail) {
+        if (head >= tail) {
+            return;
+        }
+        //merge sort 左子树 [head,(head+tail)/2]左闭右闭
+        mergeSort(arr, head, (head + tail) / 2);
+        //merge sort 右子树 [(head+tail)/2 + 1, tail]
+        mergeSort(arr, (head + tail) / 2 + 1, tail);
+        //左右子树归并
+        merge(arr, head, (head + tail) / 2, tail);
+    }
+
+    //左右子树归并
+    private void merge(E[] arr, int head, int mid, int tail) {
+        E[] aux = Arrays.copyOfRange(arr, head, tail + 1);
+        int lth = 0;
+        int rth = mid - head + 1;
         for (int i = 0; i < aux.length; i++) {
-            if (left > auxMid) {
-                arr[l + i] = aux[right];
-                right++;
-            } else if (right > aux.length - 1) {
-                arr[l + i] = aux[left];
-                left++;
-            } else if (aux[left].compareTo(aux[right]) < 0) {
-                arr[l + i] = aux[left];
-                left++;
+            if (lth > mid - head) {
+                arr[head + i] = aux[rth];
+                rth++;
+            } else if (rth > aux.length - 1) {
+                arr[head + i] = aux[lth];
+                lth++;
+            } else if (aux[rth].compareTo(aux[lth]) < 0) {
+                arr[head + i] = aux[rth];
+                rth++;
             } else {
-                arr[l + i] = aux[right];
-                right++;
+                arr[head + i] = aux[lth];
+                lth++;
             }
         }
     }
 
-    //归并排序
-    private void mergeSort(E[] arr, int l, int r) {
-        if (l >= r) {
-            return;
-        }
-        if(r - l <= 16){
-            insertionSort(arr, l, r);
-        }
-        int mid = (l + r) / 2;
-        mergeSort(arr, l, mid);
-        mergeSort(arr, mid + 1, r);
-        if (arr[mid].compareTo(arr[mid + 1]) > 0) {
-            merge(arr, l, mid, r);
-        }
-    }
 
     private void insertionSort(E[] arr, int head, int tail) {
         //外层已排序数组

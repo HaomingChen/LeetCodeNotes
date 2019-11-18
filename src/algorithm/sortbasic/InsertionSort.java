@@ -23,32 +23,34 @@ public class InsertionSort<E extends Comparable<E>> {
         if (arr == null || arr.length == 0) {
             throw new IllegalArgumentException("数组不可为空");
         }
-//        for (int i = 0; i < arr.length - 1; i++) {
-//            for (int j = i + 1; j > 0; j--) {
-//                if (arr[j].compareTo(arr[j - 1]) < 0) {
-//                    swap(j, j - 1, arr);
-//                } else {
-//                    break;
-//                }
-//            }
-//        }
-        //优化 -> 一次swap需要做到三次赋值操作 -> 改进为一次赋值操作
-        for (int i = 1; i < arr.length; i++) {
-            E item = arr[i];
-            boolean isSwitched = false;
-            for (int j = i; j > 0; j--) {
-                if (item.compareTo(arr[j - 1]) > 0) {
-                    arr[j] = item;
-                    isSwitched = true;
-                    break;
+        //已排序数组
+        for (int i = 1; i < arr.length - 1; i++) {
+            //将后一个元素插入已排序数组中
+            for (int j = i + 1; j > 0; j--) {
+                if (arr[j].compareTo(arr[j - 1]) < 0) {
+                    swap(j, j - 1, arr);
                 } else {
-                    arr[j] = arr[j - 1];
+                    break;
                 }
             }
-            if (!isSwitched) {
-                arr[0] = item;
-            }
         }
+        //优化 -> 一次swap需要做到三次赋值操作 -> 改进为一次赋值操作
+//        for (int i = 1; i < arr.length; i++) {
+//            E item = arr[i];
+//            boolean isSwitched = false;
+//            for (int j = i; j > 0; j--) {
+//                if (item.compareTo(arr[j - 1]) > 0) {
+//                    arr[j] = item;
+//                    isSwitched = true;
+//                    break;
+//                } else {
+//                    arr[j] = arr[j - 1];
+//                }
+//            }
+//            if (!isSwitched) {
+//                arr[0] = item;
+//            }
+//        }
         return arr;
     }
 
