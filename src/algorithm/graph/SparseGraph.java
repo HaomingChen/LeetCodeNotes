@@ -59,13 +59,36 @@ public class SparseGraph implements Graph {
     }
 
     //n个顶点
-    public int v() {
+    @Override
+    public int V() {
         return n;
     }
 
     //m条边
-    public int e() {
+    @Override
+    public int E() {
         return m;
+    }
+
+    @Override
+    public void show() {
+        System.out.println("\nSparse Graph Iteration\n");
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            System.out.print(i + ": ");
+            SparseGraph.adjIterator adjIterator = new SparseGraph.adjIterator(graph, i);
+            while (adjIterator.hasNext()) {
+                System.out.print(adjIterator.next() + " ");
+                count++;
+            }
+            System.out.println();
+        }
+        System.out.println("count:" + count);
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new SparseGraph.adjIterator(graph, n);
     }
 
     //O(V)

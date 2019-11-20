@@ -11,7 +11,7 @@ import java.util.function.Consumer;
  * @author Haoming Chen
  * Created on 2019/11/18
  */
-public class DenseGraph implements Graph{
+public class DenseGraph implements Graph {
 
     boolean[][] graph;
     //n个顶点, m条边
@@ -35,17 +35,50 @@ public class DenseGraph implements Graph{
         if (m < 0 || m >= graph.length) {
             return false;
         }
-        //检查边n-m是否已存在， 排除平行边
-        if (graph[n][m]) {
-            //该条边已存在
+        //排除自环边
+        if (n == m) {
             return false;
         }
+        //天然排除平行边
         graph[n][m] = true;
         //判断是否有向
         if (!isDirected) {
             graph[m][n] = true;
         }
+        m++;
         return true;
+    }
+
+    @Override
+    public int V() {
+        return n;
+    }
+
+    @Override
+    public int E() {
+        return m;
+    }
+
+    @Override
+    public void show() {
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            System.out.print(i + ": ");
+            DenseGraph.adjIterator adjIterator = new DenseGraph.adjIterator(graph, i);
+            for (int pos = 0; adjIterator.hasNext(); pos++) {
+                if (adjIterator.next()) {
+                    System.out.print(pos + " ");
+                    count++;
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("count:" + count);
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new DenseGraph.adjIterator(graph, n);
     }
 
     //稠密图,邻接矩阵实现对一个顶点的邻接顶点遍历O(V)

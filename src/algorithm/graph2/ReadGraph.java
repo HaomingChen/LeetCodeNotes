@@ -1,17 +1,14 @@
-package algorithm.graph;
+package algorithm.graph2;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-/**
- * 从文件中读取图
- *
- * @author Haoming Chen
- * Created on 2019/11/18
- */
 public class ReadGraph {
 
     private Scanner scanner;
@@ -48,7 +45,7 @@ public class ReadGraph {
     private void readFile(String filename) {
         assert filename != null;
         try {
-            File file = new File("E:\\IdeaProjects\\LeetCodeNotes\\src\\algorithm\\graph", filename);
+            File file = new File("E:\\IdeaProjects\\LeetCodeNotes\\src\\algorithm\\graph2", filename);
             if (file.exists()) {
                 FileInputStream fis = new FileInputStream(file);
                 scanner = new Scanner(new BufferedInputStream(fis), "UTF-8");
