@@ -22,7 +22,7 @@ public class Main {
 //        ReadGraph readGraph2 = new ReadGraph(g2, filename2);
 //        Components component2 = new Components(g2);
 //        System.out.println("TestG2.txt, Component Count: " + component2.count());
-        String filename = "testG.txt";
+        String filename = "testG2.txt";
         SparseGraph g = new SparseGraph(7, false);
         ReadGraph readGraph = new ReadGraph(g, filename);
         g.show();
@@ -30,5 +30,9 @@ public class Main {
         Path path = new Path(g);
         System.out.println("Path from 0 to 6 : ");
         path.showPath(0, 6);
+
+        ShortestPath bfs2 = new ShortestPath(g,0);
+        System.out.print("BFS : ");
+        bfs2.showPath(3);
     }
 }
