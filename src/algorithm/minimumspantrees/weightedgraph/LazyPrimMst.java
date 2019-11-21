@@ -24,12 +24,25 @@ public class LazyPrimMst<Weight extends Number & Comparable> {
         marked = new boolean[G.V()];
         mst = new Vector<>();
         // Lazy Prim
+        //访问首个顶点
         visit(0);
-        for (int i = 1; i < G.V(); i++) {
-            //取出最小边
+        //最小堆不为空, 最小堆中存放所有的边
+        while (!pq.isEmpty()) {
+            //取出最小边: 子问题 = 最小生成树+最小边
             Edge edge = pq.extractMin();
+            if (marked[edge.w()] || marked[edge.v()]) {
+                //该边压入最小生成树
+                mst.add(edge);
+                // 访问和这条边连接的还没有被访问过的节点
+                if (!marked[edge.v()])
+                    visit(edge.v());
+                else
+                    visit(edge.w());
+            }
         }
         // 计算最小生成树的权值
+        for (int i = 0; i < mst.size(); i++)
+            mstWeight = mstWeight.doubleValue() + mst.get(i).wt().doubleValue();
     }
 
     // 访问节点v
@@ -45,12 +58,14 @@ public class LazyPrimMst<Weight extends Number & Comparable> {
         }
     }
 
-//    // 返回最小生成树的所有边
-//    Vector<Edge<Weight>> mstEdges() {
-//    }
-//
-//    // 返回最小生成树的权值
-//    Number result() {
-//    }
+    // 返回最小生成树的所有边
+    Vector<Edge<Weight>> mstEdges() {
+        return mst;
+    }
+
+    // 返回最小生成树的权值
+    Number result() {
+        return mstWeight;
+    }
 
 }
