@@ -18,32 +18,35 @@ public class LazyPrimMst<Weight extends Number & Comparable> {
 
     //构造函数,使用Prim算法求图的最小生成树
     public LazyPrimMst(WeightedGraph<Weight> graph) {
-        // 算法初始化
+
         G = graph;
         pq = new MinHeap<>(G.E());
         marked = new boolean[G.V()];
         mst = new Vector<>();
-        // Lazy Prim
+        mstWeight = 0;
+
         visit(0);
         while (!pq.isEmpty()) {
-            pq.extractMin();
-
+            Edge<Weight> edge = pq.extractMin();
+            //该边为内部边 -> 舍弃
+            if (marked[edge.v()] && marked[edge.w()]) {
+                continue;
+            }
+            mst.add(edge);
+            mstWeight = mstWeight.doubleValue() + edge.wt().doubleValue();
+            visit(marked[edge.v()] ? edge.w() : edge.v());
         }
-        // 计算最小生成树的权值
-        for (int i = 0; i < mst.size(); i++)
-            mstWeight = mstWeight.doubleValue() + mst.get(i).wt().doubleValue();
     }
 
     // 访问节点v
     private void visit(int v) {
-        //该节点已被访问
-        if (marked[v] == true) {
+        if (marked[v]) {
             return;
         }
         marked[v] = true;
-        // 将和节点v相连接的所有未访问的边放入最小堆中
-        for (Edge e : G.adj(v)) {
-            if (!marked[e.w()]) {
+        for (Edge<Weight> e : G.adj(v)) {
+            //该边的两个顶点未均被访问过 -> 该边不为树内部的边
+            if (!marked[e.w()] || !marked[e.v()]) {
                 pq.insert(e);
             }
         }

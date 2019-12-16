@@ -9,35 +9,46 @@ package crackingleetcode;
  */
 public class KthLargestElementinanArray_215 {
 
-    int ret = -1;
-
-    public int findKthLargest(int[] nums, int k) {
-        quickSort(nums, k, 0, nums.length - 1);
-        return ret;
+    public static void main(String[] args) {
+        int[] arr = {3,1,2,4};
+        KthLargestElementinanArray_215 kthLargestElementinanArray_215 = new KthLargestElementinanArray_215();
+        System.out.println(kthLargestElementinanArray_215.findKthLargest(arr, 2));
     }
 
-    private void quickSort(int[] nums, int l, int r, int k) {
-        if (l > r) {
+    int res = -1;
+    int k = 0;
+
+    public int findKthLargest(int[] nums, int k) {
+        if (nums.length == 0) {
+            return res;
+        }
+        this.k = k;
+        quickSortBase(nums, 0, nums.length - 1);
+        return res;
+    }
+
+    private void quickSortBase(int[] nums, int head, int tail) {
+        if (head > tail) {
             return;
         }
-        int pivot = partition(nums, l, r);
+        int pivot = partition(nums, head, tail);
         if (nums.length - pivot == k) {
-            ret = nums[pivot];
+            res = nums[pivot];
             return;
         }
-        quickSort(nums, l, pivot - 1, k);
-        quickSort(nums, pivot + 1, r, k);
+        quickSortBase(nums, head, pivot - 1);
+        quickSortBase(nums, pivot + 1, tail);
     }
 
     private int partition(int[] nums, int head, int tail) {
         int lt = head;
         for (int i = head + 1; i <= tail; i++) {
-            if (nums[head] > nums[i]) {
+            if (nums[i] < nums[head]) {
                 lt++;
-                swap(nums, i, lt);
+                swap(nums, lt, i);
             }
         }
-        swap(nums, lt, head);
+        swap(nums, head, lt);
         return lt;
     }
 
