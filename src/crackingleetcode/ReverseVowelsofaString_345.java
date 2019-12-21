@@ -1,6 +1,8 @@
 package crackingleetcode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,6 +15,24 @@ public class ReverseVowelsofaString_345 {
     public static void main(String[] args) {
         ReverseVowelsofaString_345 reverseVowelsofaString_345 = new ReverseVowelsofaString_345();
         reverseVowelsofaString_345.reverseVowels("hello");
+        HashSet<String> set = new HashSet<>();
+
+        List<IJS> list = new ArrayList<>();
+        list.add(new IJS("SS"));
+        list.add(new IJS("eee"));
+        System.out.println(list.toString());
+    }
+
+
+    public static class IJS{
+
+        public IJS(){
+
+        }
+        public IJS(String ks){
+            this.ks = ks;
+        }
+        String ks = "true";
     }
 
     public String reverseVowels(String s) {
