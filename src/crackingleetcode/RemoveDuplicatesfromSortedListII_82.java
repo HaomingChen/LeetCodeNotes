@@ -18,30 +18,30 @@ public class RemoveDuplicatesfromSortedListII_82 {
         }
     }
 
-    public class Solution {
-        public ListNode deleteDuplicates(ListNode head) {
-            ListNode prev = new ListNode(-1);
-            prev.next = head;
-            ListNode frontier = prev.next;
-            ListNode ehead = prev;
-            int count = 0;
-            while (prev.next != null && frontier.next != null) {
-                if (prev.next.val == frontier.next.val) {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode prev = new ListNode(-1);
+        prev.next = head;
+        ListNode frontier = prev.next;
+        ListNode ehead = prev;
+        int count = 0;
+        while (prev.next != null && frontier.next != null) {
+            if (prev.next.val == frontier.next.val) {
+                frontier = frontier.next;
+                count++;
+            } else {
+                if (count == 0) {
+                    prev = prev.next;
                     frontier = frontier.next;
-                    count++;
                 } else {
-                    if (count == 0) {
-                        prev = prev.next;
-                        frontier = frontier.next;
-                    } else {
-                        prev.next = frontier.next;
-                        prev = frontier;
-                        frontier = frontier.next;
-                        count = 0;
-                    }
+                    prev.next = frontier.next;
+                    frontier = frontier.next;
+                    count = 0;
                 }
             }
-            return ehead.next;
         }
+        if (count != 0) {
+            prev.next = frontier.next;
+        }
+        return ehead.next;
     }
 }
