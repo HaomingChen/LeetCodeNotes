@@ -24,40 +24,40 @@ public class MergeSort<E extends Comparable<E>> {
     }
 
     //数组分离
+    //arr[head, tail]
+    //arr[head, mid, tail]
+    //when the sub array is the array of size 1. head = tail -> [head,tail]. In this case, the array no need to be sort
     private void mergeSort(E[] arr, int head, int tail) {
         if (head >= tail) {
             return;
         }
-        //merge sort 左子树 [head,(head+tail)/2]左闭右闭
-        mergeSort(arr, head, (head + tail) / 2);
-        //merge sort 右子树 [(head+tail)/2 + 1, tail]
-        mergeSort(arr, (head + tail) / 2 + 1, tail);
-        //左右子树归并
-        merge(arr, head, (head + tail) / 2, tail);
+        int mid = (head + tail) / 2;
+        mergeSort(arr, head, mid);
+        mergeSort(arr, mid + 1, tail);
+        merge(arr, head, mid, tail);
     }
 
     //左右子树归并
     private void merge(E[] arr, int head, int mid, int tail) {
-        E[] aux = Arrays.copyOfRange(arr, head, tail + 1);
+        E[] sortedArr = Arrays.copyOfRange(arr, head, tail + 1);
         int lth = 0;
         int rth = mid - head + 1;
-        for (int i = 0; i < aux.length; i++) {
+        for (int i = 0; i < sortedArr.length; i++) {
             if (lth > mid - head) {
-                arr[head + i] = aux[rth];
+                arr[head + i] = sortedArr[rth];
                 rth++;
-            } else if (rth > aux.length - 1) {
-                arr[head + i] = aux[lth];
+            } else if (rth > sortedArr.length - 1) {
+                arr[head + i] = sortedArr[lth];
                 lth++;
-            } else if (aux[rth].compareTo(aux[lth]) < 0) {
-                arr[head + i] = aux[rth];
+            } else if (sortedArr[rth].compareTo(sortedArr[lth]) < 0) {
+                arr[head + i] = sortedArr[rth];
                 rth++;
             } else {
-                arr[head + i] = aux[lth];
+                arr[head + i] = sortedArr[lth];
                 lth++;
             }
         }
     }
-
 
     private void insertionSort(E[] arr, int head, int tail) {
         //外层已排序数组
