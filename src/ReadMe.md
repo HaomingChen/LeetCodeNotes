@@ -9,3 +9,6 @@ O(nlogn)的算法可以处理大约10^7级别的数据
 2): dummyHead的next不要忘记指向头节点
 3): 不要忘记设置头节点
 
+3. 二维数组相关
+int[y][x] -> y轴 row -> x轴 column
+
