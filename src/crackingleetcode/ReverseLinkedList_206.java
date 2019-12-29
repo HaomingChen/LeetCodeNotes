@@ -8,6 +8,13 @@ package crackingleetcode;
  */
 public class ReverseLinkedList_206 {
 
+    public static void main(String[] args) {
+        String[] srt = "123#456".split("#");
+        System.out.println(srt[0]);
+        System.out.println(srt[1]);
+
+    }
+
     //1->2->3->4->5->NULL
     //A linked list can be reversed either iteratively or recursively. Could you implement both?]
     //recursively
