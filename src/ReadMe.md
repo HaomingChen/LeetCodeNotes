@@ -17,3 +17,9 @@ int[y][x] -> y轴 row -> x轴 column
 当Array作为栈时, push从数组尾部添加元素O(1)，从数组尾部去除元素O(1)
 //队列先进先出
 当Array作为队列时, enqueue从数组尾部添加元素, 从数组头部去除元素O(n) -> 可以使用循环数组优化
+
+5. 队列的典型应用 -> 层序遍历 -> 先进先出 -> 层数较浅的元素先进队列所以先出队列
+
+6. 队列在Java中的实现 LinkedList -> enqueue = poll -> dequeue = offer -> enqueue 
+
+7. 队列也可用来作为图的广度优先遍历
