@@ -23,3 +23,5 @@ int[y][x] -> y轴 row -> x轴 column
 6. 队列在Java中的实现 LinkedList -> enqueue = poll -> dequeue = offer -> enqueue 
 
 7. 队列也可用来作为图的广度优先遍历
+
+8. 递归: 可以分解为相同子问题的问题 -> 二叉树具有天然递归结构
