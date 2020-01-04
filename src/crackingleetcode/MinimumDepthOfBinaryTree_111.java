@@ -11,7 +11,7 @@ import java.util.Queue;
  * @author 58212
  * @date 2020-01-02 22:40
  */
-public class MinimumDepthOfBinaryTree {
+public class MinimumDepthOfBinaryTree_111 {
 
     public class TreeNode {
         int val;
@@ -54,18 +54,15 @@ public class MinimumDepthOfBinaryTree {
     }
     //DFS
 //    public int minDepth(TreeNode root) {
-//        //travel to end
-//        if (root == null) {
+//        if(root == null){
 //            return 0;
 //        }
-//        if (root.left == null) {
-//            return 1 + minDepth(root.right);
-//        }
-//        if (root.right == null) {
+//        if(root.right == null){
 //            return 1 + minDepth(root.left);
 //        }
-//        int leftL = minDepth(root.left);
-//        int leftR = minDepth(root.right);
-//        return leftL < leftR ? leftL + 1 : leftR + 1;
+//        if(root.left == null){
+//            return 1 + minDepth(root.right);
+//        }
+//        return 1 + Math.min(minDepth(root.right), minDepth(root.left));
 //    }
 }
