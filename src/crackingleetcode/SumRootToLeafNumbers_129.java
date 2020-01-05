@@ -11,16 +11,6 @@ package crackingleetcode;
  */
 public class SumRootToLeafNumbers_129 {
 
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-    }
-
     public int sumNumbers(TreeNode root) {
         if (root == null) {
             return 0;

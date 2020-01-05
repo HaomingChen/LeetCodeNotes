@@ -9,16 +9,6 @@ package crackingleetcode;
  */
 public class SameTree_100 {
 
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-    }
-
     boolean res = true;
 
     public boolean isSameTree(TreeNode p, TreeNode q) {

@@ -26,21 +26,23 @@ public class BinaryTreePaths_257 {
         public List<String> binaryTreePaths(TreeNode root) {
             List<String> res = new ArrayList<>();
             if (root == null) {
-                return new ArrayList<>();
-            }
-            //has traveled to the leaf node
-            if (root.left == null && root.right == null) {
-                res.add(Integer.toString(root.val));
                 return res;
             }
-            //Link current node to the path
-            List<String> pathL = binaryTreePaths(root.left);
-            for (int i = 0; i < pathL.size(); i++) {
-                res.add(root.val + "->" + pathL.get(i));
+            if (root.left == null && root.right == null) {
+                res.add(root.val + "");
+                return res;
             }
-            List<String> pathR = binaryTreePaths(root.right);
-            for (int i = 0; i < pathR.size(); i++) {
-                res.add(root.val + "->" + pathR.get(i));
+            String s = Integer.toString(root.val);
+            List<String> left = binaryTreePaths(root.left);
+            List<String> right = binaryTreePaths(root.right);
+            res.addAll(left);
+            res.addAll(right);
+            for (int i = 0; i < res.size(); i++) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(s);
+                sb.append("->");
+                sb.append(res.get(i));
+                res.set(i, sb.toString());
             }
             return res;
         }

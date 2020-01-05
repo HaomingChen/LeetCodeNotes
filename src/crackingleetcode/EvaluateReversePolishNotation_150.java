@@ -18,39 +18,27 @@ public class EvaluateReversePolishNotation_150 {
     }
 
     public static int evalRPN(String[] tokens) {
-        Stack<String> calStk = new Stack<>();
-        String res;
-        for (String item : tokens) {
-            if (judgeIfInt(item)) {
-                calStk.push(item);
+        if (tokens == null || tokens.length == 0) {
+            return 0;
+        }
+        Stack<String> stk = new Stack<>();
+        for (int i = 0; i < tokens.length; i++) {
+            int res;
+            if (tokens[i].equals("+")) {
+                res = Integer.parseInt(stk.pop()) + Integer.parseInt(stk.pop());
+            } else if (tokens[i].equals("-")) {
+                res = -Integer.parseInt(stk.pop()) + Integer.parseInt(stk.pop());
+            } else if (tokens[i].equals("*")) {
+                res = Integer.parseInt(stk.pop()) * Integer.parseInt(stk.pop());
+            } else if (tokens[i].equals("/")) {
+                int divisor = Integer.parseInt(stk.pop());
+                res = Integer.parseInt(stk.pop()) / divisor;
             } else {
-                String val1 = calStk.pop();
-                String val2 = calStk.pop();
-                //do calculate
-                if (item.equals("+")) {
-                    res = Integer.toString(Integer.parseInt(val1) + Integer.parseInt(val2));
-                } else if (item.equals("-")) {
-                    res = Integer.toString(Integer.parseInt(val2) - Integer.parseInt(val1));
-                } else if (item.equals("*")) {
-                    res = Integer.toString(Integer.parseInt(val1) * Integer.parseInt(val2));
-                } else {
-                    //note: numbers order matters at this case, the number that follows up the
-                    // first pop number should be divider. e.g [1,2,/] -> pop 2, pop 1 -> 1 / 2
-                    res = Integer.toString(Integer.parseInt(val2) / Integer.parseInt(val1));
-                }
-                calStk.push(res);
+                res = Integer.parseInt(tokens[i]);
             }
+            stk.push(Integer.toString(res));
         }
-        return Integer.parseInt(calStk.pop());
-    }
-
-    private static boolean judgeIfInt(String item) {
-        try {
-            Integer.parseInt(item);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
+        return Integer.parseInt(stk.pop());
     }
 
 }
