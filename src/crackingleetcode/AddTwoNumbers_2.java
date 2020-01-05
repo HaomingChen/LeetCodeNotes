@@ -10,6 +10,11 @@ package crackingleetcode;
  */
 public class AddTwoNumbers_2 {
 
+    public static void main(String[] args) {
+        String s = "10";
+        System.out.println((char)(Integer.valueOf(s) + 96));
+    }
+
     public class ListNode {
         int val;
         ListNode next;
