@@ -9,6 +9,12 @@ package crackingleetcode;
  */
 public class DeleteNodeinaLinkedList_237 {
 
+    public static void main(String[] args) {
+        int sum = 3;
+        sum = sum ^ 1;
+        System.out.println(sum);
+    }
+
     public class ListNode {
         int val;
         ListNode next;
