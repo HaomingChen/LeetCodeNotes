@@ -10,7 +10,7 @@ public class BackTracking_souhu01 {
 
 
     public static void main(String[] args) {
-        System.out.println(findPath(2));
+        System.out.println(findPath(20));
     }
 
     static int count = 0;

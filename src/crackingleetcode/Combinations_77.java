@@ -22,15 +22,14 @@ public class Combinations_77 {
     }
 
     private void getCombine(int n, int k, int start, List<Integer> lst){
-        if(k == 0){
+        if(k == lst.size()){
             res.add(new ArrayList<>(lst));
             return;
         }
-        for(int i = start; i <= n; i++){
+        for(int i = start; i <= n - (k - lst.size()) + 1; i++){
             lst.add(i);
-            getCombine(n, --k, ++start, lst);
+            getCombine(n, k, i + 1, lst);
             lst.remove(lst.size() - 1);
-            k++;
         }
     }
 
