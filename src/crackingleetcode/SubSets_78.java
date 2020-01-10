@@ -14,6 +14,10 @@ public class SubSets_78 {
 
     List<List<Integer>> res = new ArrayList<>();
 
+    public static void main(String[] args) {
+
+    }
+
     public List<List<Integer>> subsets(int[] nums) {
         if (nums == null || nums.length == 0) {
             return res;
