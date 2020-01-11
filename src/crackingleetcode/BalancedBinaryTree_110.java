@@ -20,26 +20,49 @@ public class BalancedBinaryTree_110 {
         }
     }
 
-    class Solution {
-        boolean res = true;
-
-        public boolean isBalanced(TreeNode root) {
-            bal(root);
-            return res;
-        }
-
-        public int bal(TreeNode root) {
-            if (root == null) {
-                return 0;
-            }
-            int r = bal(root.right);
-            int l = bal(root.left);
-            if (Math.abs(r - l) >= 2) {
-                res = false;
-            }
-            return r > l ? r + 1 : l + 1;
-        }
-
+    //寻找左子树的最大深度和右子树最大深度的差
+    public boolean isBalanced(TreeNode root) {
+        return findDepth(root) != -1;
     }
+
+    private int findDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int l = findDepth(root.left);
+        if (l == -1) {
+            return -1;
+        }
+        int r = findDepth(root.right);
+        if (r == -1) {
+            return -1;
+        }
+        if (Math.abs(l - r) > 1) {
+            return -1;
+        }
+        return Math.max(l, r) + 1;
+    }
+
+//    class Solution {
+//        boolean res = true;
+//
+//        public boolean isBalanced(TreeNode root) {
+//            bal(root);
+//            return res;
+//        }
+//
+//        public int bal(TreeNode root) {
+//            if (root == null) {
+//                return 0;
+//            }
+//            int r = bal(root.right);
+//            int l = bal(root.left);
+//            if (Math.abs(r - l) >= 2) {
+//                res = false;
+//            }
+//            return r > l ? r + 1 : l + 1;
+//        }
+//
+//    }
 
 }
