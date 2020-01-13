@@ -11,34 +11,33 @@ import java.util.List;
  */
 public class Permutations_46 {
 
-    List<List<Integer>> res = new ArrayList<>();
+    List<List<Integer>> res;
+    boolean[] visited;
 
     public List<List<Integer>> permute(int[] nums) {
-        if (nums == null || nums.length == 0) {
+        visited = new boolean[nums.length];
+        res = new ArrayList<>();
+        if (nums.length == 0) {
             return res;
         }
-        List<Integer> lst = new ArrayList<>();
-        getPermute(nums, lst);
+        List<Integer> path = new ArrayList<>();
+        getPermute(nums, 0, path);
         return res;
     }
 
-    private void getPermute(int[] nums, List<Integer> lst) {
-        if (nums.length == 0) {
-            res.add(new ArrayList<Integer>(lst));
+    private void getPermute(int[] nums, int index, List<Integer> lst) {
+        if (index == nums.length) {
+            res.add(new ArrayList<>(lst));
             return;
         }
         for (int i = 0; i < nums.length; i++) {
-            lst.add(nums[i]);
-            int count = 0;
-            int[] arr = new int[nums.length - 1];
-            for (int j = 0; j < nums.length; j++) {
-                if (j != i) {
-                    arr[count] = nums[j];
-                    count++;
-                }
+            if (visited[i] == false) {
+                visited[i] = true;
+                lst.add(nums[i]);
+                getPermute(nums, index + 1, lst);
+                lst.remove(lst.size() - 1);
+                visited[i] = false;
             }
-            getPermute(arr, lst);
-            lst.remove(lst.size() - 1);
         }
     }
 
