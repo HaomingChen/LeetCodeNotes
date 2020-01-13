@@ -31,7 +31,7 @@ public class MergeSort<E extends Comparable<E>> {
         if (head >= tail) {
             return;
         }
-        int mid = (head + tail) / 2;
+        int mid = head + (tail - head) / 2;
         mergeSort(arr, head, mid);
         mergeSort(arr, mid + 1, tail);
         merge(arr, head, mid, tail);
@@ -39,22 +39,22 @@ public class MergeSort<E extends Comparable<E>> {
 
     //左右子树归并
     private void merge(E[] arr, int head, int mid, int tail) {
-        E[] sortedArr = Arrays.copyOfRange(arr, head, tail + 1);
-        int lth = 0;
-        int rth = mid - head + 1;
-        for (int i = 0; i < sortedArr.length; i++) {
-            if (lth > mid - head) {
-                arr[head + i] = sortedArr[rth];
-                rth++;
-            } else if (rth > sortedArr.length - 1) {
-                arr[head + i] = sortedArr[lth];
-                lth++;
-            } else if (sortedArr[rth].compareTo(sortedArr[lth]) < 0) {
-                arr[head + i] = sortedArr[rth];
-                rth++;
+        E[] temp = Arrays.copyOfRange(arr, head, tail + 1);
+        int lt = 0;
+        int rt = mid - head + 1;
+        for (int i = 0; i < temp.length; i++) {
+            if (lt > mid - head) {
+                arr[head + i] = temp[rt];
+                rt ++;
+            } else if (rt > temp.length - 1) {
+                arr[head + i] = temp[lt];
+                lt ++;
+            } else if (temp[lt].compareTo(temp[rt]) < 0) {
+                arr[head + i] = temp[lt];
+                lt++;
             } else {
-                arr[head + i] = sortedArr[lth];
-                lth++;
+                arr[head + i] = temp[rt];
+                rt++;
             }
         }
     }
