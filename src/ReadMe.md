@@ -33,3 +33,6 @@ int[][] offset = new int[][]{{-1,0},{0,1},{1,0},{0,-1}};
 10. 利用正向思维思考回溯
 
 11. 利用布尔数组来标记访问/未访问的值
+
+12. java中的队列由链表来实现: LinkedList implements Queue
+实用方法: offer() -> enqueue() : poll() -> dequeue() : addFirst()
