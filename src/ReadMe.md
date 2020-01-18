@@ -36,3 +36,9 @@ int[][] offset = new int[][]{{-1,0},{0,1},{1,0},{0,-1}};
 
 12. java中的队列由链表来实现: LinkedList implements Queue
 实用方法: offer() -> enqueue() : poll() -> dequeue() : addFirst()
+
+13. 动态规划的空间优化: 因为动态规划只依赖上一次状态, 可以不需要记录
+所有的状态。O(2*C) - > O(C)
+
+14. 因01背包问题的dp仅依赖于之前的状态可以利用从后往前遍历
+构建空间复杂度为O(C)的dp table
