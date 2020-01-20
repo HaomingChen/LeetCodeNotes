@@ -12,6 +12,23 @@ package crackingleetcode;
  */
 public class HouseRobber_198 {
 
+    public int rob(int[] nums) {
+        //dp[i] = max(dp[i - 1], dp[i - 2] + dp[i]);
+        if (nums.length == 0) {
+            return 0;
+        }
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        //dp[i] -> max(nums[i] + dp[i - 2],  dp[i])
+        int[] loot = new int[nums.length + 1];
+        loot[1] = nums[0];
+        loot[2] = Math.max(nums[1], nums[0]);
+        for (int i = 3; i <= nums.length; i++) {
+            loot[i] = Math.max(nums[i - 1] + loot[i - 2], loot[i - 1]);
+        }
+        return loot[nums.length];
+    }
 
     //记忆化搜索 递归
 //    int[] store = new int[10000];

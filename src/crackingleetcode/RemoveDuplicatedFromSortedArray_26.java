@@ -16,18 +16,23 @@ public class RemoveDuplicatedFromSortedArray_26 {
     }
 
     public int removeDuplicates(int[] nums) {
-        if (nums.length == 0) {
-            return 0;
+        if (nums.length == 0 || nums.length == 1) {
+            return 1;
         }
-        int i = 0;
-        for(int j = 1; j < nums.length; j++){
-            if(nums[i] != nums[j]){
-                i++;
-                nums[i] = nums[j];
+        int head = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[head] != nums[i]) {
+                head++;
+                swap(nums, head, i);
             }
         }
-        return i + 1;
+        return head + 1;
     }
 
+    private void swap(int[] arr, int x, int y) {
+        int temp = arr[x];
+        arr[x] = arr[y];
+        arr[y] = temp;
+    }
 
 }
