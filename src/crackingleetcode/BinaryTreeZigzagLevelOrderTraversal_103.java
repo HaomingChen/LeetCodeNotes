@@ -59,5 +59,40 @@ public class BinaryTreeZigzagLevelOrderTraversal_103 {
         res.add(lst);
         return res;
     }
+//    剑指offer相同题
+//    public ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
+//        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+//        if(pRoot == null){
+//            return res;
+//        }
+//        int size = 1;
+//        Queue<TreeNode> q = new LinkedList<>();
+//        q.offer(pRoot);
+//        boolean flag = true;
+//        ArrayList<Integer> level = new ArrayList<>();
+//        while(!q.isEmpty() || !level.isEmpty()){
+//            if(size != 0){
+//                TreeNode item = q.poll();
+//                size--;
+//                if(item.left != null){
+//                    q.offer(item.left);
+//                }
+//                if(item.right != null){
+//                    q.offer(item.right);
+//                }
+//                if(flag){
+//                    level.add(item.val);
+//                }else{
+//                    level.add(0, item.val);
+//                }
+//            }else{
+//                size = q.size();
+//                flag = !flag;
+//                res.add(level);
+//                level = new ArrayList<>();
+//            }
+//        }
+//        return res;
+//    }
 
 }
