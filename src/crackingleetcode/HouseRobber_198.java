@@ -13,6 +13,8 @@ package crackingleetcode;
 public class HouseRobber_198 {
 
     public int rob(int[] nums) {
+        //for array [1,2,3,1] if you dont pick 2 the value of dp[0] and dp[1] must be same
+        //so nums[i] + dp[i - 2] must greater than dp[i]
         //dp[i] = max(dp[i - 1], dp[i - 2] + dp[i]);
         if (nums.length == 0) {
             return 0;

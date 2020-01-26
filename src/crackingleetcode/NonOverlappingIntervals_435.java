@@ -37,5 +37,28 @@ public class NonOverlappingIntervals_435 {
         }
         return intervals.length - dp[dp.length - 1];
     }
+//    Greedy Methods
+//    public static int eraseOverlapIntervals(int[][] intervals) {
+//        if(intervals.length == 0 || intervals[0].length == 0){
+//            return 0;
+//        }
+//        Comparator cp = new Comparator(){
+//            @Override
+//            public int compare(Object o1, Object o2){
+//                return ((int[])o1)[1] - ((int[])o2)[1];
+//            }
+//        };
+//        Arrays.sort(intervals, cp);
+//        int prev = intervals[0][1];
+//        int count = 0;
+//        for(int i = 1; i < intervals.length; i++){
+//            if(prev <= intervals[i][0]){
+//                prev = intervals[i][1];
+//            }else{
+//                count++;
+//            }
+//        }
+//        return count;
+//    }
 
 }
