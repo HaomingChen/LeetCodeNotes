@@ -39,6 +39,8 @@ public class WordSearch_79 {
             for (int i = 0; i < 4; i++) {
                 int newX = x + offset[i][0];
                 int newY = y + offset[i][1];
+                //细节1: 必须先判断新的x和y的坐标是否有效,
+                //细节2: 必须保证下一个查询的元素不重复查询当前的元素
                 if (validPos(newX, newY) && !visited[newX][newY]) {
                     if (searchChar(board, word, index + 1, newX, newY)) {
                         return true;

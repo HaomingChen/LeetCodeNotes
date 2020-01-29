@@ -1,6 +1,5 @@
 package crackingleetcode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,22 +11,20 @@ import java.util.List;
  */
 public class Triangle_120 {
 
+    //Rewrite by 2020-01-29
     public int minimumTotal(List<List<Integer>> triangle) {
-        //dp[i] = min(dp[i] + dp[i+1])
-        List<List<Integer>> dp = new ArrayList<>();
-        List<Integer> first = triangle.get(triangle.size() - 1);
-        dp.add(first);
-        for(int i = 1; i < triangle.size(); i++){
-            List<Integer> lst = dp.get(i - 1);
-            List<Integer> currentArr = triangle.get(triangle.size() - 1 - i);
-            List<Integer> curDp = new ArrayList<>();
-            //获取dp当前位置和右一位数字的最小值
-            for(int j = 0; j < currentArr.size(); j++){
-                curDp.add(Math.min(lst.get(j), lst.get(j + 1)) + currentArr.get(j));
+        int[] sum = new int[triangle.get(triangle.size() - 1).size()];
+        for (int i = triangle.size() - 1; i >= 0; i--) {
+            List<Integer> degree = triangle.get(i);
+            for (int j = 0; j < degree.size(); j++) {
+                if (i == triangle.size() - 1) {
+                    sum[j] = degree.get(j);
+                } else {
+                    sum[j] = degree.get(j) + Math.min(sum[j], sum[j + 1]);
+                }
             }
-            dp.add(curDp);
         }
-        return dp.get(dp.size() - 1).get(0);
+        return sum[0];
     }
 
 }
