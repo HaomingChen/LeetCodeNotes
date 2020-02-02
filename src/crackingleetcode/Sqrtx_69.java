@@ -11,16 +11,16 @@ package crackingleetcode;
 public class Sqrtx_69 {
     public int mySqrt(int x) {
         int up = x;
-        int lower = 1;
-        while(lower <= up){
+        int low = 1;
+        while(low <= up){
+            int mid = low + (up - low) / 2;
             //[low, mid, up]
-            int mid = lower + (up - lower) / 2;
             if(mid == x / mid){
                 return mid;
             }else if(mid > x / mid){
                 up = mid - 1;
             }else{
-                lower = mid + 1;
+                low = mid + 1;
             }
         }
         return up;
