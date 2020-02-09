@@ -1,4 +1,4 @@
-package ninechapters;
+package ninechapters.binarysearch;
 
 /**
  * @author Haoming Chen
