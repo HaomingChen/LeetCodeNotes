@@ -43,26 +43,4 @@ public class BalancedBinaryTree_110 {
         return Math.max(l, r) + 1;
     }
 
-//    class Solution {
-//        boolean res = true;
-//
-//        public boolean isBalanced(TreeNode root) {
-//            bal(root);
-//            return res;
-//        }
-//
-//        public int bal(TreeNode root) {
-//            if (root == null) {
-//                return 0;
-//            }
-//            int r = bal(root.right);
-//            int l = bal(root.left);
-//            if (Math.abs(r - l) >= 2) {
-//                res = false;
-//            }
-//            return r > l ? r + 1 : l + 1;
-//        }
-//
-//    }
-
 }
