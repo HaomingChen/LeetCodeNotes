@@ -52,6 +52,7 @@ public class LRUCache {
             return map.get(key).val;
         }
         return -1;
+
     }
 
     public void put(int key, int value) {
