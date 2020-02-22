@@ -16,7 +16,6 @@ public class BinarySearchTreeIterator_86 {
 
     TreeNode root;
     Stack<TreeNode> stack;
-
     /*
      * @param root: The root of binary tree.
      */
