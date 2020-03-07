@@ -1,12 +1,10 @@
-package crackingleetcode;
+package ninechapters.dplesson1;
 
-/**
- * Given an unsorted array of integers, find the length of longest increasing subsequence.
- *
- * @author 58212
- * @date 2020-01-20 1:31
- */
-public class LongestIncreasingSubsequence_300 {
+public class LongestIncreasingSubsequence_leetcode300 {
+
+    public static void main(String[] args) {
+
+    }
 
     public int lengthOfLIS(int[] nums) {
         if(nums.length == 0){
