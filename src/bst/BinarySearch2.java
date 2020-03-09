@@ -9,6 +9,7 @@ public class BinarySearch2 {
     public static void main(String[] args) {
         int[] arr = {2, 4, 6, 8, 13, 24, 34, 44, 44, 56, 78, 99, 102};
 //        System.out.println(BinarySearch.binarySearch(arr, 102));
+
         System.out.println(BinarySearch2.floor(arr, 10));
         System.out.println(BinarySearch2.ceil(arr, 10));
         System.out.println(BinarySearch2.floor(arr, 44));
