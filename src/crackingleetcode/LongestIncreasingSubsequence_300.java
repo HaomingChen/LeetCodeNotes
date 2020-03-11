@@ -34,12 +34,10 @@ public class LongestIncreasingSubsequence_300 {
                     l = mid;
                 }
             }
-            if (dp[l] < nums[i] && dp[l + 1] > nums[i]) {
-                dp[l + 1] = nums[i];
-            } else if (dp[l] >= nums[i]) {
-                dp[l] = nums[i];
-            } else {
+            if (dp[l] < nums[i] && dp[r] > nums[i]) {
                 dp[r] = nums[i];
+            } else {
+                dp[l] = nums[i];
             }
         }
         return size;
