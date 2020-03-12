@@ -1,6 +1,7 @@
 package algorithm.frequent;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * LRU Cache
@@ -12,8 +13,9 @@ import java.util.HashMap;
 public class LRUCache {
 
     class Node {
-        int val;
+
         int key;
+        int val;
         Node prev;
         Node next;
 
@@ -27,69 +29,66 @@ public class LRUCache {
         }
     }
 
-    //Key - Node
-    HashMap<Integer, Node> map;
+    Map<Integer, Node> dic;
+    int capacity;
+    int size;
     Node head;
     Node tail;
-    int capacity;
-    int count;
 
     public LRUCache(int capacity) {
-        map = new HashMap<>(capacity);
-        this.capacity = capacity;
+        dic = new HashMap<>(capacity);
         head = new Node();
         tail = new Node();
         head.next = tail;
         tail.prev = head;
-        count = 0;
+        this.capacity = capacity;
+        size = 0;
     }
 
     public int get(int key) {
-        if (map.containsKey(key)) {
-            Node node = map.get(key);
-            remove(node);
-            insert(node);
-            return map.get(key).val;
+        if (!dic.containsKey(key)) {
+            return -1;
         }
-        return -1;
-
+        Node node = dic.get(key);
+        remove(node);
+        insert(node);
+        return dic.get(key).val;
     }
 
     public void put(int key, int value) {
-        if (map.containsKey(key)) {
-            Node node = map.get(key);
-            remove(node);
-            node.val = value;
-            insert(node);
-        } else {
-            Node node = new Node(key, value);
-            insert(node);
+        if (!dic.containsKey(key)) {
+            insert(new Node(key, value));
+            return;
+        }
+        Node node = dic.get(key);
+        remove(node);
+        node.val = value;
+        insert(node);
+    }
+
+    private void insert(Node node) {
+        if (capacity < 0) {
+            return;
+        }
+        dic.put(node.key, node);
+        node.prev = head;
+        node.next = head.next;
+        node.prev.next = node;
+        node.next.prev = node;
+        size++;
+        if (size > capacity) {
+            remove(tail.prev);
         }
     }
 
-    public void insert(Node node) {
-        if (capacity > 0) {
-            node.next = head.next;
-            node.prev = head;
-            head.next.prev = node;
-            head.next = node;
-            map.put(node.key, node);
-            count++;
-            if (count > capacity) {
-                remove(tail.prev);
-            }
+    private void remove(Node node) {
+        if (size <= 0) {
+            return;
         }
-    }
-
-    public void remove(Node node) {
-        if (count > 0) {
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
-            node.prev = null;
-            node.next = null;
-            map.remove(node.key);
-            count--;
-        }
+        dic.remove(node.key);
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        size--;
     }
 
 }
