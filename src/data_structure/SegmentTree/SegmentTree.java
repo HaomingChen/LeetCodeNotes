@@ -21,14 +21,15 @@ public class SegmentTree<E> {
     //在treeIndex的位置创建表示区间[l...r]的线段树
     private void buildSegmentTree(int treeIndex, int l, int r) {
         if (l == r) {
-            data[treeIndex] = data[l];
+            tree[treeIndex] = data[l];
+            return;
         }
-        int leftTreeIndex = leftChild(treeIndex);
-        int rightTreeIndex = rightChild(treeIndex);
         int mid = (l + r) / 2;
-        buildSegmentTree(leftTreeIndex, l, mid);
-        buildSegmentTree(rightTreeIndex, mid + 1, r);
-        tree[treeIndex] = merger.merge(tree[leftTreeIndex], tree[rightTreeIndex]);
+        int leftChild = leftChild(treeIndex);
+        int rightChild = rightChild(treeIndex);
+        buildSegmentTree(leftChild, l, mid);
+        buildSegmentTree(rightChild, mid + 1, r);
+        tree[treeIndex] = merger.merge(tree[leftChild], tree[rightChild]);
     }
 
     // 返回区间[queryL, queryR]的值
@@ -80,4 +81,17 @@ public class SegmentTree<E> {
         return index * 2 + 2;
     }
 
+    @Override
+    public String toString() {
+        if (tree == null || tree.length == 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < tree.length - 1; i++) {
+            sb.append(tree[i] + ", ");
+        }
+        sb.append(tree[tree.length - 1] + "]");
+        return sb.toString();
+    }
 }
