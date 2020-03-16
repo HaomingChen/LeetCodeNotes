@@ -7,28 +7,23 @@ package crackingleetcode;
  * @date 2019-12-14 0:52
  */
 public class MergeSortedArray_88 {
-
+    //关键: 从大往小放, 后面的空间就会空出来, 避免了数组的整体移动
     static public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int pta = 0;
-        int ptb = 0;
-
-        int[] arr = new int[m];
-        for(int i = 0; i < m; i++){
-            arr[i] = nums1[i];
-        }
-        for(int i = 0; i < m + n; i++){
-            if(pta >= m){
-                nums1[i] = nums2[ptb];
-                ptb++;
-            }else if(ptb >= n){
-                nums1[i] = arr[pta];
-                pta++;
-            }else if(arr[pta] > nums2[ptb]){
-                nums1[i] = nums2[ptb];
-                ptb++;
-            }else{
-                nums1[i] = arr[pta];
-                pta++;
+        int ptA = m - 1;
+        int ptB = n - 1;
+        for (int i = m + n - 1; i >= 0; i--) {
+            if (ptA < 0) {
+                nums1[i] = nums2[ptB];
+                ptB--;
+            } else if (ptB < 0) {
+                nums1[i] = nums1[ptA];
+                ptA--;
+            } else if (nums1[ptA] < nums2[ptB]) {
+                nums1[i] = nums2[ptB];
+                ptB--;
+            } else {
+                nums1[i] = nums1[ptA];
+                ptA--;
             }
         }
     }
