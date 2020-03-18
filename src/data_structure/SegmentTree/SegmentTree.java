@@ -18,6 +18,32 @@ public class SegmentTree<E> {
         buildSegmentTree(0, 0, arr.length - 1);
     }
 
+    //将index位置的值更新为e
+    public void set(int index, E e) {
+        if (index < 0 || index >= data.length) {
+            return;
+        }
+        data[index] = e;
+        set(0, 0, data.length - 1, index, e);
+    }
+
+    //在以treeIndex为根的线段树中更新index的值为e
+    private void set(int treeIndex, int l, int r, int index, E e) {
+        if (l == r) {
+            tree[treeIndex] = e;
+            return;
+        }
+        int mid = l + (r - l) / 2;
+        int leftChild = leftChild(treeIndex);
+        int rightChild = rightChild(treeIndex);
+        if (index >= mid + 1) {
+            set(rightChild, mid + 1, r, index, e);
+        } else {
+            set(leftChild, l, mid, index, e);
+        }
+        tree[treeIndex] = merger.merge(tree[leftChild], tree[rightChild]);
+    }
+
     //在treeIndex的位置创建表示区间[l...r]的线段树
     private void buildSegmentTree(int treeIndex, int l, int r) {
         if (l == r) {
