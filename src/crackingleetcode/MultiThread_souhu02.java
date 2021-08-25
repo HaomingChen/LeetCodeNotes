@@ -7,5 +7,12 @@ package crackingleetcode;
  * Created on 2020/1/7
  */
 public class MultiThread_souhu02 {
-
+    public static void main(String[] args) {
+        Thread thd = new Thread(){
+            public void run(){
+                System.out.println("Hello world");
+            }
+        };
+        thd.run();
+    }
 }
