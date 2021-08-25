@@ -26,7 +26,7 @@ public class HeapSort<E extends Comparable<E>> {
         for (Comparable item : arr) {
             System.out.print(" " + item);
         }
-
+ 
     }
 
     private E[] data;
@@ -51,7 +51,7 @@ public class HeapSort<E extends Comparable<E>> {
     }
 
     /**
-     * 原地堆排序
+     * 鍘熷湴鍫嗘帓搴�
      *
      * @return
      */
@@ -95,10 +95,10 @@ public class HeapSort<E extends Comparable<E>> {
     }
 
     private void shiftDown(int index) {
-        //左子树存在
+        //宸﹀瓙鏍戝瓨鍦�
         while (index * 2 + 1 < size) {
             int j = index * 2 + 1;
-            //右子树存在,且右子树大于左子树
+            //鍙冲瓙鏍戝瓨鍦�,涓斿彸瀛愭爲澶т簬宸﹀瓙鏍�
             if (j + 1 < size && data[j].compareTo(data[j + 1]) < 0) {
                 j = j + 1;
             }
@@ -115,7 +115,7 @@ public class HeapSort<E extends Comparable<E>> {
     }
 
     private void heapify(E[] arr) {
-        //从最后一个parent节点开始做heapify操作
+        //浠庢渶鍚庝竴涓猵arent鑺傜偣寮�濮嬪仛heapify鎿嶄綔
         for (int i = (size - 1) / 2; i > -1; i--) {
             shiftDown(i);
         }
